@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>村山正樹 | IT Project Manager Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy:  #1F497D;
+            --navy2: #2E6FAB;
+            --light: #EEF4FB;
+            --green: #1E7A4A;
+            --amber: #856404;
+            --text:  #222222;
+            --gray:  #666666;
+            --white: #FFFFFF;
+            --bg:    #F8FAFD;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.8;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(31,73,125,0.96);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0 1.5rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.25rem 1.5rem;
+            padding: 0.85rem 0;
+        }
+        nav a {
+            color: rgba(255,255,255,0.82);
+            text-decoration: none;
+            font-size: 0.83rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #fff; }
+
+        /* ── Section wrapper ── */
+        .wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 3rem;
+        }
+
+        /* ── Section heading ── */
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--navy);
+            border-bottom: 3px solid var(--navy);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+        .section-sub {
+            color: var(--gray);
+            font-size: 0.88rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ── Hero ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(145deg, #1a3f6e 0%, #2E6FAB 55%, #1F497D 100%);
+            color: #fff;
+            padding: 7rem 1.5rem 5rem;
+        }
+        .hero-tag {
+            font-size: 0.82rem;
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            opacity: 0.75;
+            margin-bottom: 1.2rem;
+        }
+        .hero-name {
+            font-size: clamp(2.4rem,6vw,4rem);
+            font-weight: 900;
+            margin-bottom: 0.4rem;
+        }
+        .hero-title {
+            font-size: clamp(0.9rem,2.2vw,1.15rem);
+            font-weight: 300;
+            opacity: 0.88;
+            margin-bottom: 3rem;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-size: 2.4rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1.1;
+        }
+        .stat-label { font-size: 0.75rem; opacity: 0.72; }
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .btn {
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+            display: inline-block;
+        }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-white  { background: #fff; color: var(--navy); }
+        .btn-border { border: 2px solid rgba(255,255,255,0.65); color: #fff; }
+
+        /* ── Profile table ── */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .profile-table td {
+            padding: 0.7rem 1rem;
+            border: 1px solid #d3e4f5;
+            font-size: 0.93rem;
+        }
+        .profile-table tr:nth-child(even) td:last-child { background: var(--light); }
+        .profile-table td:first-child {
+            background: var(--navy2);
+            color: #fff;
+            font-weight: 600;
+            white-space: nowrap;
+            width: 28%;
+        }
+
+        /* ── Skill grid ── */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .skill-item {
+            display: flex;
+            gap: 0.9rem;
+            align-items: flex-start;
+            padding: 0.85rem 1rem;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #d3e4f5;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .skill-lv {
+            font-size: 1.3rem;
+            font-weight: 900;
+            min-width: 2rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .lv-ex   { color: var(--green); }
+        .lv-good { color: var(--navy2); }
+        .lv-some { color: var(--amber); }
+        .skill-name { font-weight: 600; font-size: 0.9rem; }
+        .skill-desc { font-size: 0.77rem; color: var(--gray); margin-top: 0.15rem; }
+
+        /* ── Case cards ── */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.4rem;
+            margin-top: 1.5rem;
+        }
+        .case-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 14px rgba(31,73,125,0.09);
+            border: 1px solid #d3e4f5;
+        }
+        .case-header {
+            background: var(--navy);
+            color: #fff;
+            padding: 1rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .case-num {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            width: 2.1rem; height: 2.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .case-title { font-weight: 700; font-size: 0.98rem; line-height: 1.4; }
+        .case-body { padding: 1.2rem 1.4rem; }
+        .case-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 0.9rem;
+        }
+        .meta-tag {
+            font-size: 0.76rem;
+            padding: 0.22rem 0.7rem;
+            border-radius: 50px;
+            background: var(--light);
+            color: var(--navy2);
+            font-weight: 500;
+        }
+        .case-lead {
+            font-size: 0.87rem;
+            color: #444;
+            margin-bottom: 0.6rem;
+            line-height: 1.7;
+        }
+        .lbl {
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: #fff;
+            padding: 0.18rem 0.65rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0.6rem 0 0.35rem;
+        }
+        .lbl-a { background: var(--green); }
+        .lbl-r { background: #c25700; }
+        .case-ul { list-style: none; padding-left: 0.5rem; }
+        .case-ul li {
+            font-size: 0.86rem;
+            padding: 0.18rem 0 0.18rem 1.1rem;
+            position: relative;
+        }
+        .case-ul li::before {
+            content: '・';
+            position: absolute; left: 0;
+            color: var(--navy2);
+        }
+        .skill-tags {
+            display: flex; flex-wrap: wrap; gap: 0.4rem;
+            margin-top: 0.75rem;
+        }
+        .stag {
+            font-size: 0.74rem;
+            padding: 0.18rem 0.6rem;
+            border-radius: 4px;
+            background: #2c3e50;
+            color: #fff;
+        }
+
+        /* ── Services ── */
+        .srv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .srv-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            border: 1px solid #d3e4f5;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+        }
+        .srv-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.93rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .srv-desc { font-size: 0.81rem; color: var(--gray); line-height: 1.6; }
+
+        /* ── PR pillars ── */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .pillar {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.4rem;
+            border-left: 4px solid var(--navy);
+        }
+        .pillar-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.98rem;
+        }
+        .pillar-desc { font-size: 0.86rem; line-height: 1.75; }
+        .pr-text { font-size: 0.94rem; line-height: 2; margin-bottom: 1rem; }
+
+        /* ── Download CTA ── */
+        #download {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 5rem 1.5rem;
+        }
+        #download h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        #download p  { opacity: 0.85; margin-bottom: 2rem; font-size: 0.93rem; }
+
+        /* ── Footer ── */
+        footer {
+            background: #111;
+            color: rgba(255,255,255,0.45);
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.8rem;
+            line-height: 2;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 580px) {
+            .hero-stats { gap: 1.5rem; }
+            nav ul { gap: 0.2rem 1rem; }
+            .skill-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="#profile">プロフィール</a></li>
+    <li><a href="#skills">スキル</a></li>
+    <li><a href="#cases">プロジェクト事例</a></li>
+    <li><a href="#services">提供サービス</a></li>
+    <li><a href="#pr">自己PR</a></li>
+    <li><a href="#download">PDF</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <p class="hero-tag">IT PROJECT MANAGER PORTFOLIO</p>
+  <h1 class="hero-name">村山 正樹</h1>
+  <p class="hero-title">Masaki Murayama ─ フリーランス ITプロジェクトマネージャー</p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">25<span style="font-size:1.1rem">年+</span></span>
+      <span class="stat-label">IT業界経験</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">15<span style="font-size:1.1rem">年+</span></span>
+      <span class="stat-label">PM / PL 経験</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">10+</span>
+      <span class="stat-label">対応業種</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">6+</span>
+      <span class="stat-label">主要プロジェクト事例</span>
+    </div>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#cases" class="btn btn-white">プロジェクト事例を見る</a>
+    <a href="#download" class="btn btn-border">PDF ダウンロード</a>
+  </div>
+</section>
+
+<!-- Profile -->
+<div class="wrap" id="profile">
+  <h2 class="section-title">プロフィール</h2>
+  <p class="section-sub">大学の機械工学科卒業後、建築設備施工管理を経てIT業界へ転身。約25年にわたりシステムエンジニア・PMとして活動。</p>
+  <table class="profile-table">
+    <tr><td>職種</td><td>ITプロジェクトマネージャー（PM / PL）</td></tr>
+    <tr><td>IT業界歴</td><td>約25年（1998年〜）</td></tr>
+    <tr><td>PM / PL 経験</td><td>約15年</td></tr>
+    <tr><td>所属</td><td>個人事業主（B.B.Fサービス）2023年4月〜</td></tr>
+    <tr><td>前職</td><td>株式会社ニコンシステム（ニコングループ）2007〜2023年（15年）</td></tr>
+    <tr><td>前々職</td><td>株式会社マックインターフェイス（現トランスコスモス・デジタル・テクノロジー）1998〜2007年（9年）</td></tr>
+    <tr><td>得意業界</td><td>製造業（精密機器）・小売業・不動産・保険・公共 他10業種以上</td></tr>
+    <tr><td>資格</td><td>ITIL ファウンデーション（2013年取得）</td></tr>
+  </table>
+</div>
+
+<!-- Skills -->
+<div class="wrap" id="skills">
+  <h2 class="section-title">スキルマップ</h2>
+  <p class="section-sub">◎ 豊富な実績あり　　○ 複数経験あり　　△ 限定的な経験あり</p>
+  <div class="skill-grid">
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">ステークホルダー管理</div><div class="skill-desc">ユーザー部門・ベンダー・経営層の三者間折衝を15年継続</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">要件定義・仕様策定</div><div class="skill-desc">化学物質管理（6年間）、基幹マイグレーション等 多数</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">リスク管理</div><div class="skill-desc">炎上PJ経験から「先手を打つ」スタイルを確立</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">移行・カットオーバー管理</div><div class="skill-desc">基幹システムマイグレーション、ERP展開PJ 等</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">進捗管理・WBS</div><div class="skill-desc">全PJで実施。週次〜月次定例での進捗報告体制を構築</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">テスト計画・品質管理</div><div class="skill-desc">不動産管理（外部結合〜総合テストPM）等</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-ex">◎</span>
+      <div><div class="skill-name">ベンダー管理・選定</div><div class="skill-desc">DataHUB構築、化学物質管理システム等</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-good">○</span>
+      <div><div class="skill-name">経営層へのプレゼン</div><div class="skill-desc">DataHUB構築PoC予算申請、ERP展開計画承認取得</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-good">○</span>
+      <div><div class="skill-name">保守・運用設計</div><div class="skill-desc">ERP展開PJのサービスデスク立上げ等</div></div>
+    </div>
+    <div class="skill-item">
+      <span class="skill-lv lv-some">△</span>
+      <div><div class="skill-name">予算管理（精緻な積算）</div><div class="skill-desc">予算計画の大枠は経験あるが、EVM等は限定的</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Case Studies -->
+<div class="wrap" id="cases">
+  <h2 class="section-title">プロジェクト事例集</h2>
+  <p class="section-sub">守秘義務に配慮し、クライアント名は一部匿名・概略化して記載しています。</p>
+  <div class="cases-grid">
+
+    <!-- Case 1 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">1</div>
+        <div class="case-title">基幹システムマイグレーション（オンプレ新旧移行）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2017年4月〜2018年5月</span>
+          <span class="meta-tag">🏭 製造業（精密機器）</span>
+          <span class="meta-tag">👥 5〜10名</span>
+          <span class="meta-tag">🎯 プロジェクトリーダー</span>
+        </div>
+        <p class="case-lead">販売計画・製造売上システムの老朽化対応として、旧オンプレ環境から新環境へのマイグレーションをPLとして全フェーズ担当。ドキュメントが不十分な環境での暗黙知の文書化が最大の課題だった。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>ユーザー部門へのヒアリングを繰り返し、暗黙知を文書化し移行仕様に組み込んだ</li>
+          <li>複数部門（営業・製造・経営管理）との定例会議を設計し、認識齟齬を早期排除</li>
+          <li>フォールバック計画を事前策定し、カットオーバー当日のリスクを最小化</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>品質を確保した上でカットオーバーを実現</li>
+          <li>暗黙知の文書化により移行後の運用・保守の仕様書を整備</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">移行PM</span><span class="stag">仕様調査</span><span class="stag">合意形成</span><span class="stag">品質管理</span><span class="stag">カットオーバー管理</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">2</div>
+        <div class="case-title">ERP構築・グループ拠点展開PJ</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2013年12月〜2017年3月（3年3ヶ月）</span>
+          <span class="meta-tag">🏭 製造業（精密機器）</span>
+          <span class="meta-tag">👥 10名（社員5名＋協力会社5名）</span>
+          <span class="meta-tag">🎯 プロジェクトリーダー（PM相当）</span>
+        </div>
+        <p class="case-lead">生産・在庫管理ERP（SyteLine/Infor）をグループ複数拠点に展開。各拠点で業務プロセスが異なる中、グループ標準への統一を図った。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>各拠点への個別ヒアリングで業務差異を「標準対応可」「カスタム対応必要」に仕分け</li>
+          <li>先行拠点の知見を後続拠点に活用するロールアウト方式を採用</li>
+          <li>サービスデスクのプロセス・FAQを整備し、展開後の定着化を実現</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>グループ複数拠点へのERP展開を完了</li>
+          <li>サービスデスク立上げによりカットオーバー後の混乱を最小化</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">多拠点PM</span><span class="stag">ERP展開</span><span class="stag">ロールアウト計画</span><span class="stag">定着化支援</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">3</div>
+        <div class="case-title">大手小売企業 基幹システム刷新PJ（直近）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2025年8月〜2026年4月</span>
+          <span class="meta-tag">🛒 小売業</span>
+          <span class="meta-tag">🎯 PM支援</span>
+        </div>
+        <p class="case-lead">BPRによる業務プロセス刷新PJ。小売業界の会計・支払処理・マスタ管理業務のAsIs精査と新パッケージへの移行検証を担当。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>小売業界固有の業務プロセスのAsIs精査・課題整理・ギャップ分析を担当</li>
+          <li>パッケージベンダーとユーザー部門の間に入り、調整・合意形成役として機能</li>
+          <li>検証環境構築における品質管理・課題管理・進捗報告を担当</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>会計システムの検証環境構築・AsIs精査による課題一覧を整理</li>
+          <li>小売業界固有の業務フローの実務知識を習得</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">小売業界知識</span><span class="stag">AsIs精査</span><span class="stag">ギャップ分析</span><span class="stag">調整・合意形成</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 4 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">4</div>
+        <div class="case-title">化学物質管理システム構築（6年間・全フェーズリード）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2016年12月〜2022年12月（6年間）</span>
+          <span class="meta-tag">🏭 製造業（精密機器）</span>
+          <span class="meta-tag">🎯 プロジェクトリーダー</span>
+        </div>
+        <p class="case-lead">法令対応の化学物質管理DBをゼロから構築。要件定義からパッケージ選定・カスタマイズ・保守運用まで6年間を通じてリード。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>富士通製パッケージ（ZyCoaG）を選定し、自社業務に合わせたカスタマイズ要件を策定</li>
+          <li>法令改正のたびに影響分析→要件定義→改修→テストのサイクルを確立</li>
+          <li>6年間のログ・変更履歴を体系的に管理し、監査対応の仕組みを構築</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>法令対応の化学物質管理DBを構築・安定稼働（6年間無重大障害）</li>
+          <li>ユーザーの自走運用体制を確立し、問い合わせ件数を段階的に削減</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">長期PJ管理</span><span class="stag">スコープ管理</span><span class="stag">パッケージ選定</span><span class="stag">継続改善</span><span class="stag">法令対応</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 5 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">5</div>
+        <div class="case-title">社内DX推進 データ統合基盤（DataHUB）構築</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2021年12月〜2022年12月</span>
+          <span class="meta-tag">🏭 製造業（精密機器）</span>
+          <span class="meta-tag">👥 8名（社員6名＋協力会社2名）</span>
+          <span class="meta-tag">🎯 プロジェクトマネージャー（PM）</span>
+        </div>
+        <p class="case-lead">グループ全体に散在するデータを統合するDataHUB構築DX推進PJ。PoCからベンダー選定・基本設計まで全工程をPMとして主導。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>複数製品のPoC計画を策定し、比較評価表を作成・経営層に提案</li>
+          <li>PoC結果・投資対効果・導入リスクを整理し、予算承認を取得</li>
+          <li>8名PMとして進捗管理・課題管理・ステークホルダー報告を一元管理</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>DataHUB基盤の構築を完了</li>
+          <li>経営層への投資承認を獲得し、計画通りのマイルストーンを達成</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">DX推進PM</span><span class="stag">PoC設計・実施</span><span class="stag">ベンダー選定</span><span class="stag">経営層プレゼン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 6 -->
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-num">6</div>
+        <div class="case-title">チケットECサイト構築（大規模・オフショア開発）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">
+          <span class="meta-tag">📅 2004年10月〜2005年12月</span>
+          <span class="meta-tag">🎭 エンターテイメント</span>
+          <span class="meta-tag">👥 全体150名・オフショア20名（中国）</span>
+          <span class="meta-tag">🎯 チームリーダー</span>
+        </div>
+        <p class="case-lead">大規模チケット販売ECサイトの新規構築。チケット購入部分の要件定義〜基本設計をリードし、中国のオフショアチームとの連携も担当。</p>
+        <span class="lbl lbl-a">取り組み</span>
+        <ul class="case-ul">
+          <li>チケット購入フローの要件定義・画面設計・API仕様を整理</li>
+          <li>設計者として中国現地に複数回出張し、オフショアチームとの信頼関係を構築</li>
+          <li>品質基準を定義し、オフショア側の成果物レビューを定期実施</li>
+        </ul>
+        <span class="lbl lbl-r">成果</span>
+        <ul class="case-ul">
+          <li>要件定義・基本設計を完了し、後工程へ円滑に引き継ぎ</li>
+          <li>大規模PJ・オフショア管理の実務ノウハウを習得</li>
+        </ul>
+        <div class="skill-tags">
+          <span class="stag">大規模PJ管理</span><span class="stag">オフショア開発管理</span><span class="stag">要件定義</span><span class="stag">ECサイト</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cases-grid -->
+</div>
+
+<!-- Services -->
+<div class="wrap" id="services">
+  <h2 class="section-title">提供できる価値</h2>
+  <p class="section-sub">フリーランスPMとして以下のサービスを提供しています。</p>
+  <div class="srv-grid">
+    <div class="srv-card"><div class="srv-title">🗂 プロジェクト全体管理</div><div class="srv-desc">進捗・課題・リスク管理を一元化。WBS策定からカットオーバーまでを一貫管理。</div></div>
+    <div class="srv-card"><div class="srv-title">📋 要件定義・仕様策定</div><div class="srv-desc">ユーザー部門へのヒアリングを通じた要件整理・文書化。ドキュメント不備な環境にも対応。</div></div>
+    <div class="srv-card"><div class="srv-title">🤝 ステークホルダー管理</div><div class="srv-desc">ユーザー部門・ベンダー・経営層の三者間の利害調整・合意形成。発注者・受注者双方の視点で橋渡し。</div></div>
+    <div class="srv-card"><div class="srv-title">🔄 移行プロジェクト支援</div><div class="srv-desc">オンプレ〜新環境への移行計画策定・テスト管理・カットオーバー・フォールバック計画の立案・実行。</div></div>
+    <div class="srv-card"><div class="srv-title">🔍 ベンダー管理・選定</div><div class="srv-desc">要件に基づくベンダー選定・比較評価。RFP作成・提案評価・交渉支援。</div></div>
+    <div class="srv-card"><div class="srv-title">📝 ドキュメント整備・品質管理</div><div class="srv-desc">要件定義書・設計書・テスト計画書・報告書・教育資料等の作成・レビュー。</div></div>
+    <div class="srv-card"><div class="srv-title">🎓 ユーザー教育・定着化支援</div><div class="srv-desc">操作マニュアル作成・研修設計・サービスデスク立上げによる移行後定着化支援。</div></div>
+    <div class="srv-card"><div class="srv-title">🚀 DX推進・PoC支援</div><div class="srv-desc">新規ツール・データ基盤の選定・PoC実施・経営層への投資提案支援。</div></div>
+  </div>
+</div>
+
+<!-- PR -->
+<div class="wrap" id="pr">
+  <h2 class="section-title">自己PR</h2>
+  <p class="section-sub">IT業界25年で培ったPMとしての強み</p>
+  <p class="pr-text">大学の機械工学科卒業後、建築設備の施工管理者として社会人キャリアをスタートし、現場のリアルな業務感覚を身につけてからIT業界へ転身しました。この異業種経験が、現場の課題を「当事者目線」で理解する力の源泉となっています。</p>
+  <p class="pr-text">IT業界25年で最も大切にしてきたのは「プロジェクトを成功に導くためのコミュニケーション」です。ニコンシステムでは発注者PMとしてベンダーを管理し、協力会社時代には受注者側のPLも経験。この双方向の視座が、発注者・受注者・ユーザーそれぞれの思惑を読みながら最適な着地点を導く力の源泉です。</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-title">① 先手を打つリスク管理</div>
+      <div class="pillar-desc">炎上PJ経験から「兆候の段階でリスク登録・対応策の準備」を習慣化。「問題が起きてから動く」ではなく「兆候を見逃さず先手を打つ」PMスタイルを実践しています。</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">② バイリンガルPM</div>
+      <div class="pillar-desc">発注者・受注者の双方を経験した唯一の視点。ユーザー部門・ベンダー・経営層、三者間の「翻訳者」として最適な着地点を導きます。</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">③ 業務起点のIT推進</div>
+      <div class="pillar-desc">製造業15年・小売業経験を持つPMとして、「業務の目的」から要件を整理。技術偏重に陥らず、現場が使えるシステムを実現します。</div>
+    </div>
+  </div>
+</div>
+
+<!-- Download CTA -->
+<section id="download">
+  <h2>ポートフォリオ（PDF版）</h2>
+  <p>詳細なプロジェクト事例・スキルマップはPDF版でご覧いただけます。</p>
+  <a href="./portfolio_murayama_masaki_202606.pdf" class="btn btn-white" download>📄 PDF をダウンロード</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>村山 正樹 / Masaki Murayama ─ IT Project Manager</p>
+  <p style="font-size:0.74rem; margin-top:0.3rem;">© 2026 Masaki Murayama. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
